@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import database.Database;
+
+import java.sql.*;
 import hashing.Hashing;
 
 import java.io.File;
@@ -75,6 +78,7 @@ public class Login extends JFrame implements ActionListener{
 		JPanel buttonPane = new JPanel(new GridLayout(1,3));
 		buttonPane.setBackground(Color.white);
 		loginButton = new JButton("Login");
+		loginButton.addActionListener(this);
 		buttonPane.add(new JLabel());
 		buttonPane.add(new JLabel());
 		buttonPane.add(loginButton);
@@ -116,9 +120,62 @@ public class Login extends JFrame implements ActionListener{
 		return this;
 	}
 	
+	private int verifyUsernamePassword() {
+		String user = username.getText();
+		String pass = String.valueOf(password.getPassword());
+		Connection con = Database.getConnection();
+		try {
+			String query = "select * from users";
+			Statement stmt = con.createStatement();
+			ResultSet result = stmt.executeQuery(query);
+			while( result.next() ) {
+				if( result.getString("username").equals(user) ) {
+					if( result.getString("password").equals(pass) ) {
+//						return true;
+						return result.getInt("id");
+						
+					}
+				}
+			}
+			return -1;
+		}
+		catch(Exception ex) {
+			System.out.println("login validate "+ex.getMessage());
+		}
+		return -1;
+	}
+	private void loginUser() {
+		int user = verifyUsernamePassword();
+		if( user>0 ) {
+			System.out.println("User Logged in!!");
+			try {
+				Connection con = Database.getConnection();
+				String sql = "update users set isLoggedIn=1 where id=?";
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setInt(1, user);
+				stmt.executeUpdate();
+				con.close();
+				JOptionPane.showMessageDialog(this, "User Logged in Successfully!"); 
+				String[] args = new String[2];
+				Dashboard.main(args);
+				dispose();	
+			}
+			catch(Exception ex) {
+				System.out.println("login user method "+ex.getMessage());
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Invalid Login Credentials!"); 
+			
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==loginButton) {
+			loginUser();
+		}
 		
 	}
 	public static void main(String[] args) {

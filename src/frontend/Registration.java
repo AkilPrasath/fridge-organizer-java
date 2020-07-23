@@ -168,7 +168,7 @@ public class Registration extends JFrame  implements ActionListener,TextListener
 		// TODO Auto-generated method stub
 		
 	}
-	public static void main(String[] args) {
+	public static void main() {
 		// TODO Auto-generated method stub
 		new Registration();
 	}
