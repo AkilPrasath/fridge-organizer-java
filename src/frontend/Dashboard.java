@@ -212,6 +212,7 @@ public class Dashboard extends JFrame implements ActionListener{
 			add(itemPanel, BorderLayout.CENTER);
 			revalidate();
 			repaint();
+			System.out.println(currentUser.fridges);
 		}
 		else if( e.getSource() == recipes ) {
 			remove(itemPanel);
@@ -230,6 +231,18 @@ public class Dashboard extends JFrame implements ActionListener{
 			add(reportPane,BorderLayout.CENTER);
 			revalidate();
 			repaint();
+		}
+		else if( e.getSource() == logOut ) {
+			currentUser.logout();
+			JOptionPane.showMessageDialog(this, "Logged Out Successfully!");
+			dispose();
+			try {
+				
+				new Login();
+			}
+			catch (Exception ex) {
+				System.out.println(" dashboard logout "+ex.getMessage());
+			}
 		}
 	}
 	

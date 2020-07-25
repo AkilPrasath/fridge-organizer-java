@@ -35,7 +35,7 @@ public class SplashScreen extends JWindow {
 		// TODO Auto-generated method stub
 		SplashScreen screen = new SplashScreen();
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(500);
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());

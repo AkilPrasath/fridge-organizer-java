@@ -88,7 +88,7 @@ public class Login extends JFrame implements ActionListener{
 		hyperlink.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Registration reg = new Registration();
-				new JDialog(reg,"Registration");
+//				new JDialog(reg,"Registration");
 			}
 		});
 		hyperlink.setForeground(Color.BLUE.darker());
@@ -127,6 +127,7 @@ public class Login extends JFrame implements ActionListener{
 		if( user.loginUser(username.getText(), new String(password.getPassword())) ) {
 			
 			JOptionPane.showMessageDialog(this, "Login Successful!!");
+			dispose();
 			new Dashboard(user);
 		}
 		else {

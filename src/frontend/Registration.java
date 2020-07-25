@@ -50,6 +50,7 @@ public class Registration extends JFrame  implements ActionListener,TextListener
 		register = new JButton("Register");
 		register.addActionListener(this);
 		cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(this);
 		buttonPane.add(cancelButton);
 		buttonPane.add(register);
 		buttonPane.setBounds(60,300,200,40);
