@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import customClasses.User;
 import database.Database;
 
 import java.sql.*;
@@ -120,53 +121,16 @@ public class Login extends JFrame implements ActionListener{
 		return this;
 	}
 	
-	private int verifyUsernamePassword() {
-		String user = username.getText();
-		String pass = String.valueOf(password.getPassword());
-		Connection con = Database.getConnection();
-		try {
-			String query = "select * from users";
-			Statement stmt = con.createStatement();
-			ResultSet result = stmt.executeQuery(query);
-			while( result.next() ) {
-				if( result.getString("username").equals(user) ) {
-					if( result.getString("password").equals(pass) ) {
-//						return true;
-						return result.getInt("id");
-						
-					}
-				}
-			}
-			return -1;
-		}
-		catch(Exception ex) {
-			System.out.println("login validate "+ex.getMessage());
-		}
-		return -1;
-	}
+	
 	private void loginUser() {
-		int user = verifyUsernamePassword();
-		if( user>0 ) {
-			System.out.println("User Logged in!!");
-			try {
-				Connection con = Database.getConnection();
-				String sql = "update users set isLoggedIn=1 where id=?";
-				PreparedStatement stmt = con.prepareStatement(sql);
-				stmt.setInt(1, user);
-				stmt.executeUpdate();
-				con.close();
-				JOptionPane.showMessageDialog(this, "User Logged in Successfully!"); 
-				String[] args = new String[2];
-				Dashboard.main(args);
-				dispose();	
-			}
-			catch(Exception ex) {
-				System.out.println("login user method "+ex.getMessage());
-			}
+		User user = new User();
+		if( user.loginUser(username.getText(), new String(password.getPassword())) ) {
+			
+			JOptionPane.showMessageDialog(this, "Login Successful!!");
+			new Dashboard(user);
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "Invalid Login Credentials!"); 
-			
+			JOptionPane.showMessageDialog(this, "Invalid Login Credentials!");
 		}
 	}
 
@@ -178,6 +142,27 @@ public class Login extends JFrame implements ActionListener{
 		}
 		
 	}
+	
+	public static int currentUser() {
+		
+		Connection con = Database.getConnection();
+		String sql = "select * from users where isLoggedIn=1";
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			result.next();
+			int userId = result.getInt("userId");
+			if ( userId >0) {
+				return userId;
+			}
+			
+		}
+		catch(Exception ex) {
+			System.out.println("current user "+ ex.getMessage());
+		}
+		return -1;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {

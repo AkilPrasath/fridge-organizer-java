@@ -3,6 +3,8 @@ package frontend;
 import javax.swing.*;
 import javax.swing.Box.Filler;
 
+import customClasses.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -15,11 +17,15 @@ import java.sql.*;
 
 
 public class Dashboard extends JFrame implements ActionListener{
-	JButton manageFridge, manageItems, recipes,addFridge,organizeFridge,deleteFridge,createItem,deleteItem;
-	JPanel manageFridgePane,itemPanel,recipePanel;
-	JLabel fridgeHead,itemPanelhead;
+	JButton manageFridge, manageItems, recipes,addFridge;
+	JButton organizeFridge,deleteFridge,createItem,deleteItem,addRecipe;
+	JButton suggestRecipe,reports,expenseReport,maintenanceReport,logOut;
+	JPanel manageFridgePane,itemPanel,recipePanel,reportPane;
+	JLabel fridgeHead,itemPanelhead,recipeHead,reportHead;
 	Dimension centerPaneButtonDimension = new Dimension( 150,100 );
-	Dashboard(){
+	User currentUser;
+	Dashboard(User user){
+		this.currentUser = user;
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(dim.width,dim.height);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -56,7 +62,20 @@ public class Dashboard extends JFrame implements ActionListener{
 		recipes.addActionListener(this);
 		navi.add(recipes);
 		
-		navi.add(Box.createRigidArea(new Dimension(3,200)));
+		reports = new JButton("Reports");
+		reports.setMaximumSize(new Dimension(200,100));
+		reports.setAlignmentX(CENTER_ALIGNMENT);
+		reports.addActionListener(this);
+		navi.add(reports);
+		
+		navi.add(Box.createRigidArea(new Dimension(3,50)));
+
+		logOut = new JButton("Logout");
+		logOut.setMaximumSize(new Dimension(200,100));
+		logOut.setAlignmentX(CENTER_ALIGNMENT);
+		logOut.addActionListener(this);
+		navi.add(logOut);
+		
 		add(navi,BorderLayout.WEST);
 		
 		
@@ -123,26 +142,53 @@ public class Dashboard extends JFrame implements ActionListener{
 		recipePanel = new JPanel();
 		recipePanel.setPreferredSize(new Dimension((dim.width/4)*3,dim.height));
 		recipePanel.setLayout(new BoxLayout(recipePanel,BoxLayout.Y_AXIS));
+		recipePanel.setVisible(false);
 		
-		JLabel recipeHead = new JLabel("Recipe Menu");
+		recipeHead = new JLabel("Recipe Menu");
 		recipeHead.setAlignmentX(CENTER_ALIGNMENT);
 		recipePanel.add(recipeHead);
 		
 		recipePanel.add(Box.createRigidArea(new Dimension(0,100)));
 		
-		JButton addRecipe =  new JButton("Add Recipe");
+		addRecipe =  new JButton("Add Recipe");
 		addRecipe.setMaximumSize(centerPaneButtonDimension);
 		addRecipe.setAlignmentX(CENTER_ALIGNMENT);
 		recipePanel.add(addRecipe);
 		
 		recipePanel.add(Box.createRigidArea(new Dimension(0,100)));
 		
-		JButton suggestRecipe = new JButton("Suggest Recipe");
+		suggestRecipe = new JButton("Suggest Recipe");
 		suggestRecipe.setMaximumSize(centerPaneButtonDimension);
 		suggestRecipe.setAlignmentX(CENTER_ALIGNMENT);
 		recipePanel.add(suggestRecipe);
 		
+
 		
+		reportPane = new JPanel();
+		reportPane.setLayout(new BoxLayout(reportPane,BoxLayout.Y_AXIS));
+		reportPane.setPreferredSize(new Dimension((dim.width/4)*3,dim.height));
+		reportPane.setBackground(Color.cyan);
+		reportPane.setVisible(false);
+		
+		reportHead = new JLabel("Reports");
+		reportHead.setAlignmentX(CENTER_ALIGNMENT);
+		reportPane.add(reportHead);
+		
+		reportPane.add(Box.createRigidArea(new Dimension(0,100)));
+		
+		expenseReport = new JButton("Expense Report");
+		expenseReport.setMaximumSize(centerPaneButtonDimension);
+		expenseReport.setAlignmentX(CENTER_ALIGNMENT);
+		reportPane.add(expenseReport);
+		
+		reportPane.add(Box.createRigidArea(new Dimension(0,100)));
+		
+		maintenanceReport = new JButton("Maintenance Report");
+		maintenanceReport.setMaximumSize(centerPaneButtonDimension);
+		maintenanceReport.setAlignmentX(CENTER_ALIGNMENT);
+		reportPane.add(maintenanceReport);
+		
+
 		setVisible(true);
 	}
 	
@@ -151,6 +197,7 @@ public class Dashboard extends JFrame implements ActionListener{
 
 		if( e.getSource() == manageFridge ) {
 			remove(itemPanel);
+			remove(reportPane);
 			remove(recipePanel);
 			manageFridgePane.setVisible(true);
 			add(manageFridgePane,BorderLayout.CENTER);
@@ -160,6 +207,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		else if( e.getSource() == manageItems ) {
 			remove(manageFridgePane);
 			remove(recipePanel);
+			remove(reportPane);
 			itemPanel.setVisible(true);
 			add(itemPanel, BorderLayout.CENTER);
 			revalidate();
@@ -168,8 +216,18 @@ public class Dashboard extends JFrame implements ActionListener{
 		else if( e.getSource() == recipes ) {
 			remove(itemPanel);
 			remove(manageFridgePane);
+			remove(reportPane);
 			recipePanel.setVisible(true);
 			add(recipePanel, BorderLayout.CENTER);
+			revalidate();
+			repaint();
+		}
+		else if( e.getSource() == reports ) {
+			remove(itemPanel);
+			remove(manageFridgePane);
+			remove(recipePanel);
+			reportPane.setVisible(true);
+			add(reportPane,BorderLayout.CENTER);
 			revalidate();
 			repaint();
 		}
@@ -177,7 +235,6 @@ public class Dashboard extends JFrame implements ActionListener{
 	
 	
 	public static void main(String[] args) {
-		new Dashboard();
 	}
 
 }

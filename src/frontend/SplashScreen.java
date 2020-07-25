@@ -1,11 +1,18 @@
 package frontend;
 
 import javax.swing.*;
+
+import customClasses.User;
+
 import java.awt.*;
 
 
 
 public class SplashScreen extends JWindow {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Image splashScreen;     
 	ImageIcon imageIcon;    
 	JFrame frame;
@@ -34,7 +41,14 @@ public class SplashScreen extends JWindow {
 			System.out.println(ex.getMessage());
 		}
 		screen.dispose();
-		Login.main(args);
+		int currentUser = Login.currentUser();
+		if(  currentUser != -1 ) {
+			new Dashboard(new User(currentUser));
+		}
+		else {
+			
+			Login.main(args);
+		}
 	}
 
 }
