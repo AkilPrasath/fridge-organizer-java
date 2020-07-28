@@ -12,7 +12,7 @@ abstract public class Fridge {
 	int fridgeId;
 	String fridgeName;
 	int capacity;
-	List<Item>itemList=new ArrayList<Item>();
+	public List<Item>itemList=new ArrayList<Item>();
 	Fridge( int id , String name){
 		this.fridgeId = id;
 		this.fridgeName = name;
@@ -30,13 +30,20 @@ abstract public class Fridge {
 			stmt.setInt(1, fridgeId);
 			ResultSet result = stmt.executeQuery();
 			int count,itemId;
+			String itemName;
 			Date date;
+			String sql1 = "select * from items where itemId=?";
+			PreparedStatement stmt1 = con.prepareStatement(sql1);
+			ResultSet result1;
 			while( result.next() ) {
 				count = result.getInt("currentQuantity");
 				date = result.getDate("addedAt");
 				itemId = result.getInt("itemId");
+				stmt1.setInt(1, itemId);
+				result1 = stmt1.executeQuery();
+				result1.next();
 				for(int i=0; i<count; i++) {
-					itemList.add( new Item(itemId,date) );
+					itemList.add( new Item(itemId,date,result1.getString("itemName"),result1.getInt("bestBeforeDays")) );
 				}
 			}
 		}

@@ -12,22 +12,48 @@ public class User {
 	String username;
 	String hint;
 	public List<Fridge> fridges;
+	public Map<String,Recipe>recipes ;
 	Report[] reports;
 	
 	public User( int id ){
 		fridges = new ArrayList<Fridge>();
+		recipes = new HashMap<String,Recipe>();
 		this.userId = id;
 		System.out.println("user constructor");
-		initialize();
+		initializeFridges();
+		initializeRecipes();
 	}
 	public User() {
 		fridges = new ArrayList<Fridge>();
+		recipes = new HashMap<String,Recipe>();
 		System.out.println("empty const");
 		this.userId = -1;
 	}
 	
+	private void initializeRecipes() {
+		try {
+			Connection con = Database.getConnection();
+			String sql = "select * from recipelist where userId=?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, this.userId);
+			ResultSet result = stmt.executeQuery();
+			String recipeName,cuisine;
+			float time;
+			int id;
+			while( result.next() ) {
+				id = result.getInt("recipeId");
+				recipeName=result.getString("recipeName");
+				time = result.getFloat("time");
+				cuisine = result.getString("cuisine");
+				recipes.put(recipeName, new Recipe(id,recipeName,cuisine,time));
+			}
+		}
+		catch(Exception ex) {
+			System.out.println("init recipe "+ex.getMessage());
+		}
+	}
 	
-	private void initialize() {
+	private void initializeFridges() {
 		try {
 			Map<Integer,Integer> fridgeList = new HashMap<Integer,Integer>();
 			Connection con = Database.getConnection();
@@ -91,8 +117,9 @@ public class User {
 				PreparedStatement stmt = con.prepareStatement(sql); 
 				stmt.setInt(1, this.userId);
 				stmt.executeUpdate();
-				initialize();
-				System.out.println("User Logged in!!");
+//				System.out.println("User Logged in!!");
+				initializeFridges();
+				initializeRecipes();
 				return true;
 			}
 			catch(Exception ex) {

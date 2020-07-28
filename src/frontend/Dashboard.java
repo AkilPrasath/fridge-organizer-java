@@ -153,6 +153,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		addRecipe =  new JButton("Add Recipe");
 		addRecipe.setMaximumSize(centerPaneButtonDimension);
 		addRecipe.setAlignmentX(CENTER_ALIGNMENT);
+		addRecipe.addActionListener(this);
 		recipePanel.add(addRecipe);
 		
 		recipePanel.add(Box.createRigidArea(new Dimension(0,100)));
@@ -212,7 +213,7 @@ public class Dashboard extends JFrame implements ActionListener{
 			add(itemPanel, BorderLayout.CENTER);
 			revalidate();
 			repaint();
-			System.out.println(currentUser.fridges);
+			System.out.println(currentUser.recipes.get("dish 2").ingredients);
 		}
 		else if( e.getSource() == recipes ) {
 			remove(itemPanel);
@@ -243,6 +244,9 @@ public class Dashboard extends JFrame implements ActionListener{
 			catch (Exception ex) {
 				System.out.println(" dashboard logout "+ex.getMessage());
 			}
+		}
+		else if(e.getSource()==addRecipe) {
+			new AddRecipe(currentUser);
 		}
 	}
 	
