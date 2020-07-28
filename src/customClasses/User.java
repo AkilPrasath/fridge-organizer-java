@@ -8,7 +8,7 @@ import java.util.*;
 import database.Database;
 
 public class User {
-	int userId;
+	public int userId;
 	String username;
 	String hint;
 	public List<Fridge> fridges;
@@ -145,6 +145,42 @@ public class User {
 		}
 		
 				
+		
+	}
+	public void createRecipe(int[][] intTableData,String recipeName,String cuisine, int time) {
+		try {
+			Connection con = Database.getConnection();
+			String sql = " insert into recipelist (cuisine,time,recipeName,userId) values(?,?,?,?) ";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, cuisine);
+			stmt.setFloat(2,(float)time);
+			stmt.setString(3,recipeName);
+			stmt.setInt(4,this.userId);
+			stmt.executeUpdate();
+			
+			String sql2 = "select * from recipelist where userId=? and recipeName=?";
+			stmt = con.prepareStatement(sql2);
+			stmt.setInt(1, this.userId);
+			stmt.setString(2, recipeName);
+			ResultSet res = stmt.executeQuery();
+			res.next();
+			int recipeId = res.getInt("recipeId");
+			
+			String sql1 = "insert into recipedetails(recipeId,itemId,quantity) values(?,?,?)";
+			stmt = con.prepareStatement(sql1);
+			
+			for( int i=0; i<intTableData.length; i++ ) {
+				stmt.setInt(1, recipeId);
+				stmt.setInt(2, intTableData[i][0]);
+				stmt.setInt(3,intTableData[i][1]);
+				stmt.executeUpdate();
+			}
+			this.recipes.put(recipeName,  new Recipe(recipeId,recipeName,cuisine,(float)time) );
+			System.out.println("recipeAdded successfully!!");
+		}
+		catch(Exception ex) {
+			System.out.println("user class create recipe "+ex.getMessage());
+		}
 		
 	}
 	public void addFridge() {

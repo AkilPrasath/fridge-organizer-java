@@ -13,7 +13,7 @@ public class Item {
 		return this.itemName;
 	}
 	
-	int itemId;
+	public int itemId;
 	public Date purchaseDate;
 	String itemName;
 	int bestBeforeDays;

@@ -18,13 +18,14 @@ import database.Database;
 public class AddRecipe extends JFrame implements ChangeListener,ActionListener,ItemListener{
 	User currentUser;
 	JComboBox<String> itemCombo;
-	JLabel recipeNameLabel,cuisineLabel;
+	JLabel recipeNameLabel,cuisineLabel,timeLabel;
 	JTextField recipeName,cuisine;
+	JSpinner timeSpinner;
 	ArrayList<Item> itemList;
 	String selectedIngredientValue;
-	JButton addIngredient;
+	JButton addIngredient,saveRecipe;
 	JSpinner itemQuantitySpinner;
-	int itemQuantity;
+	int itemQuantity,time;
 	JTable ingredientsTable;
 	JScrollPane scrollPane;
 	String[][] ingredientsData;
@@ -42,20 +43,31 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 		int y = (dim.height-getSize().height)/2; 
 		
 		recipeNameLabel = new JLabel("Recipe Name");
-		recipeNameLabel.setBounds(100, 50, 100, 20);
+		recipeNameLabel.setBounds(100, 20, 100, 20);
 		add(recipeNameLabel);
 		
 		recipeName = new JTextField();
-		recipeName.setBounds(200,50,150,20);
+		recipeName.setBounds(200,20,150,20);
 		add(recipeName);
 		
 		cuisineLabel = new JLabel("Cuisine");
-		cuisineLabel.setBounds(100, 80, 100, 20);
+		cuisineLabel.setBounds(100, 50, 100, 20);
 		add(cuisineLabel);
 		
 		cuisine = new JTextField();
-		cuisine.setBounds(200,80,150,20);
+		cuisine.setBounds(200,50,150,20);
 		add(cuisine);
+		
+		timeLabel = new JLabel("Cooking Time (mins.)");
+		timeLabel.setBounds(100,80,120,20);
+		add(timeLabel);
+		
+		timeSpinner = new JSpinner();
+		SpinnerNumberModel model1 = new SpinnerNumberModel(0, 0, 200, 10);
+		timeSpinner.setModel(model1);
+		((DefaultEditor) timeSpinner.getEditor()).getTextField().setEditable(false);
+		timeSpinner.setBounds(230,80,70,20);
+		add(timeSpinner);
 		
 		JLabel itemName = new JLabel("Select Ingredient");
 		itemName.setBounds(100,120,100,20);
@@ -73,14 +85,14 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 		
 		itemQuantitySpinner = new JSpinner();
 		itemQuantitySpinner.setBounds(310,120,50,20);
-		SpinnerNumberModel model = new SpinnerNumberModel(1, 0, 50, 1);
+		SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 50, 1);
 		itemQuantitySpinner.setModel(model);
 		((DefaultEditor) itemQuantitySpinner.getEditor()).getTextField().setEditable(false);
 		itemQuantitySpinner.addChangeListener(this);
 		add(itemQuantitySpinner);
 		
 		addIngredient = new JButton("Add");
-		addIngredient.setBounds(370,120,80,20);
+		addIngredient.setBounds(370,120,110,20);
 		addIngredient.addActionListener(this);
 		add(addIngredient);
 		
@@ -95,17 +107,21 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 	            return false;
 		}
 			};
-		
 		scrollPane = new JScrollPane(ingredientsTable);
-		scrollPane.setBounds(100,170,250,150);
+		scrollPane.setBounds(100,190,250,150);
 		add(scrollPane);
+		
+		saveRecipe = new JButton("Save Recipe");
+		saveRecipe.setBounds(370,320,110,20);
+		saveRecipe.addActionListener(this);
+		add(saveRecipe);
 		
 		setLocation(x,y);
 		setVisible(true);
 	}
 	
 	public static void main(String[] arg) {
-		new AddRecipe(new User());
+		new AddRecipe(new User(9));
 	}
 
 	@Override
@@ -114,7 +130,17 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 	}
 	
 	private void generateTable() {
-		
+		remove(scrollPane);
+		ingredientsTable = new JTable(ingredientsData,tableHead) {
+			public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	            return false;
+		}
+			};
+		scrollPane = new JScrollPane(ingredientsTable);
+		scrollPane.setBounds(100,190,250,150);
+		add(scrollPane);
+		revalidate();
+		repaint();
 	}
 	
 	
@@ -122,14 +148,57 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==addIngredient) {
-			
 			itemQuantity = (Integer)itemQuantitySpinner.getValue();
-			ingredientsData[rowCount][0]=selectedIngredientValue;
-			ingredientsData[rowCount][1]=String.valueOf(itemQuantity);
-			rowCount++;
-			generateTable();
+			if(!selectedIngredientValue.equals("--Select--") && itemQuantity!=0 ) {
+				ingredientsData[rowCount][0]=selectedIngredientValue;
+				ingredientsData[rowCount][1]=String.valueOf(itemQuantity);
+				rowCount++;
+				itemQuantitySpinner.setValue(0);
+				itemCombo.setSelectedItem("--Select--");
+				generateTable();
+				JOptionPane.showMessageDialog(this, "Ingredient added successfully!!");
+			}
+			else if( selectedIngredientValue.equals("--Select--") ) {
+				JOptionPane.showMessageDialog(this, "Please select an Ingredient to add!!");
+			}
+			else if( itemQuantity==0) {
+				JOptionPane.showMessageDialog(this, "Ingredient Quantity cannot be empty!!");
+			}
+				
+		}
+		else if( e.getSource()==saveRecipe ) {
+			int[][] intTableData = getIntTableData();
+			String recipeName = this.recipeName.getText();
+			String cuisine = this.cuisine.getText();
+			time =(Integer) this.timeSpinner.getValue();
+			currentUser.createRecipe(intTableData,recipeName,cuisine,time);
+			JOptionPane.showMessageDialog(this, "Recipe Added Successfully!!");
+			dispose();
 		}
 	}
+	
+	private int[][] getIntTableData(){
+		System.out.println("getinttabledata");
+		int[][] data = new int[rowCount][2];
+		int rowIndex=0;
+		for( int i=0; i<rowCount;i++ ) {
+			data[i][0] = getItemId(ingredientsData[i][0]);
+			data[i][1] = Integer.parseInt(ingredientsData[i][1]);
+			System.out.println(data[i][0]+" "+data[i][1]);
+		}
+		return data;
+	}
+	
+	private int getItemId(String itemName) {
+		int id=0;
+		for(Item i: itemList) {
+			if(i.toString().equals(itemName)) {
+				return i.itemId;
+			}
+		}
+		return 0;
+	}
+	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if(e.getSource()==itemCombo && e.getStateChange()==ItemEvent.SELECTED) {
