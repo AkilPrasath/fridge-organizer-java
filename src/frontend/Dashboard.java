@@ -161,6 +161,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		suggestRecipe = new JButton("Suggest Recipe");
 		suggestRecipe.setMaximumSize(centerPaneButtonDimension);
 		suggestRecipe.setAlignmentX(CENTER_ALIGNMENT);
+		suggestRecipe.addActionListener(this);
 		recipePanel.add(suggestRecipe);
 		
 
@@ -247,6 +248,9 @@ public class Dashboard extends JFrame implements ActionListener{
 		}
 		else if(e.getSource()==addRecipe) {
 			new AddRecipe(currentUser);
+		}
+		else if( e.getSource()==suggestRecipe ) {
+			new SuggestRecipe(currentUser);
 		}
 	}
 	

@@ -16,7 +16,7 @@ public class Recipe {
 	public Map<Item,Integer>ingredients;
 	
 	public String toString() {
-		return recipeName+" "+cuisine;
+		return recipeName;
 	}
 	
 	Recipe( int id, String name,String cu, float time ){

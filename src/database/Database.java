@@ -14,7 +14,7 @@ public class Database {
 			return con;
 		}
 		catch(Exception ex) {
-			System.out.println("Exception in Database");
+			System.out.println("Exception in Database"+ex.getMessage());
 		}
 		return null;
 	}

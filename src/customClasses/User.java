@@ -183,14 +183,58 @@ public class User {
 		}
 		
 	}
-	public void addFridge() {
+	
+	public ArrayList<Recipe> suggestRecipes(){
+		ArrayList<Item> items = getAllItems();
+		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();  
+		Recipe r;
+		int reqCount;
+		int presentCount;
+		int flag=1;
+		for( String rName: recipes.keySet() ) {
+			r = recipes.get(rName);
+			flag=1;
+			for( Item i : r.ingredients.keySet() ) {
+				reqCount = r.ingredients.get(i);
+				presentCount = countItems( items, i );
+				if( presentCount >= reqCount-2 ) {
+					continue;
+				}
+				else {
+					flag=0;
+					break;
+				}
+			}
+			if(flag==1) {
+				recipeList.add(r);
+			}
+		}
 		
+		return recipeList;
 	}
-	public void removeFridge() {
+	
+	public int countItems( ArrayList<Item> items, Item i ) {
+		int count = 0;
 		
+		for( Item item : items ) {
+			if( item.toString().equals(i.toString()) ) {
+				count++;
+			}
+		}
+		
+		return count;
 	}
-	public Fridge[] getFridges(){ 
-		Fridge[] fridges = new Fridge[1];
-		return fridges;
+	
+	public ArrayList<Item> getAllItems(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		for( Fridge f: fridges ) {
+			for( Item i : f.itemList ) {
+				items.add(i);
+			}
+		}
+		return items;
 	}
+	
+	
+	
 }
