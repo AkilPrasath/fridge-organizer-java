@@ -22,6 +22,7 @@ public class SuggestRecipe extends JFrame implements ActionListener{
 	SuggestRecipe( User user ){
 		this.currentUser = user;
 		setSize(new Dimension(550,440));
+		setResizable(false);
 		setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (dim.width-getSize().width)/2; 

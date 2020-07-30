@@ -19,7 +19,7 @@ public class SplashScreen extends JWindow {
 	SplashScreen(){
 		splashScreen = Toolkit.getDefaultToolkit().getImage("D:\\splashScreen.jpeg");
 		imageIcon = new ImageIcon(splashScreen);
-		setSize(imageIcon.getIconWidth(),imageIcon.getIconHeight());
+		setSize(imageIcon.getIconWidth(),imageIcon.getIconHeight()); 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (dim.width-getSize().width)/2; 
 		int y = (dim.height-getSize().height)/2; 

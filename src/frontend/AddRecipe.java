@@ -35,7 +35,7 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 		ingredientsData = new String[30][2];
 		this.currentUser = user;
 		
-		
+		setResizable(false);
 		setSize(new Dimension(550,400));
 		setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

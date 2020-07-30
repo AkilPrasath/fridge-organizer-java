@@ -16,7 +16,7 @@ public class Item {
 	public int itemId;
 	public Date purchaseDate;
 	String itemName;
-	int bestBeforeDays;
+	public int bestBeforeDays;
 	Item( int id, Date date,String name, int bestBefore ){
 		this.itemId = id;
 		this.purchaseDate = date;

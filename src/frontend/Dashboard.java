@@ -18,7 +18,7 @@ import java.sql.*;
 
 public class Dashboard extends JFrame implements ActionListener{
 	JButton manageFridge, manageItems, recipes,addFridge;
-	JButton organizeFridge,deleteFridge,createItem,deleteItem,addRecipe;
+	JButton organizeFridge,deleteFridge,createItem,listItem,addRecipe;
 	JButton suggestRecipe,reports,expenseReport,maintenanceReport,logOut;
 	JPanel manageFridgePane,itemPanel,recipePanel,reportPane;
 	JLabel fridgeHead,itemPanelhead,recipeHead,reportHead;
@@ -134,10 +134,11 @@ public class Dashboard extends JFrame implements ActionListener{
 		
 		itemPanel.add(Box.createRigidArea(new Dimension(0,100)));
 
-		deleteItem = new JButton("Delete Item");
-		deleteItem.setMaximumSize(centerPaneButtonDimension);
-		deleteItem.setAlignmentX(CENTER_ALIGNMENT);
-		itemPanel.add(deleteItem);
+		listItem = new JButton("View Items");
+		listItem.setMaximumSize(centerPaneButtonDimension);
+		listItem.setAlignmentX(CENTER_ALIGNMENT);
+		listItem.addActionListener(this);
+		itemPanel.add(listItem);
 		
 		recipePanel = new JPanel();
 		recipePanel.setPreferredSize(new Dimension((dim.width/4)*3,dim.height));
@@ -251,6 +252,9 @@ public class Dashboard extends JFrame implements ActionListener{
 		}
 		else if( e.getSource()==suggestRecipe ) {
 			new SuggestRecipe(currentUser);
+		}
+		else if( e.getSource()==listItem ) {
+			new ListItems();
 		}
 	}
 	
