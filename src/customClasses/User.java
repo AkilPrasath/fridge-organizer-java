@@ -53,8 +53,9 @@ public class User {
 		}
 	}
 	
-	private void initializeFridges() {
+	public void initializeFridges() {
 		try {
+			fridges.clear();
 			Map<Integer,Integer> fridgeList = new HashMap<Integer,Integer>();
 			Connection con = Database.getConnection();
 			String sql = "select * from fridgelist where userId=?";

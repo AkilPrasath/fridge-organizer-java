@@ -99,6 +99,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		
 		addFridge = new JButton("Add Fridge");
 		addFridge.setMaximumSize(centerPaneButtonDimension);
+		addFridge.addActionListener(this);
 		addFridge.setAlignmentX(CENTER_ALIGNMENT);
 		manageFridgePane.add(addFridge);
 		
@@ -113,6 +114,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		
 		deleteFridge = new JButton("Delete Fridge");
 		deleteFridge.setMaximumSize(centerPaneButtonDimension);
+		deleteFridge.addActionListener(this);
 		deleteFridge.setAlignmentX(CENTER_ALIGNMENT);
 		manageFridgePane.add(deleteFridge);
 		
@@ -182,6 +184,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		expenseReport = new JButton("Expense Report");
 		expenseReport.setMaximumSize(centerPaneButtonDimension);
 		expenseReport.setAlignmentX(CENTER_ALIGNMENT);
+		expenseReport.addActionListener(this);
 		reportPane.add(expenseReport);
 		
 		reportPane.add(Box.createRigidArea(new Dimension(0,100)));
@@ -189,6 +192,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		maintenanceReport = new JButton("Maintenance Report");
 		maintenanceReport.setMaximumSize(centerPaneButtonDimension);
 		maintenanceReport.setAlignmentX(CENTER_ALIGNMENT);
+		maintenanceReport.addActionListener(this);
 		reportPane.add(maintenanceReport);
 		
 
@@ -255,6 +259,29 @@ public class Dashboard extends JFrame implements ActionListener{
 		}
 		else if( e.getSource()==listItem ) {
 			new ListItems();
+		}
+		else if( e.getSource()==addFridge ) {
+			try {
+				new AddFridge(currentUser);
+				System.out.println( currentUser.fridges );
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				System.out.println("Exception in add fridge"+e1.getMessage());
+			}
+		}
+		else if( e.getSource()==deleteFridge ) {
+			try {
+				new DeleteFridge(currentUser);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				System.out.println("Exception in delete fridge"+e1.getMessage());
+			}
+		}
+		else if( e.getSource()==expenseReport ) {
+			new ExpenditureReport(currentUser);
+		}
+		else if( e.getSource()== maintenanceReport ) {
+			new MaintainceReport(currentUser);
 		}
 	}
 	
