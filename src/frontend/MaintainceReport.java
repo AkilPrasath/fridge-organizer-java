@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.time.*;
 //import java.sql.Date;
 
-public class MaintainceReport extends JFrame implements ActionListener,frontend.report{
+public class MaintainceReport extends JFrame implements ActionListener,frontend.Report{
     /**
 	 * 
 	 */
@@ -35,7 +35,7 @@ public class MaintainceReport extends JFrame implements ActionListener,frontend.
     JButton b1,b2;
     JDialog d1;
     JFrame f1=new JFrame("Check Maintenance");
-    User currentUser;
+    private User currentUser;
     public MaintainceReport( User user ) {
     	this.currentUser = user;
         

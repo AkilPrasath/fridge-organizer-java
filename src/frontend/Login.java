@@ -41,7 +41,7 @@ public class Login extends JFrame implements ActionListener{
 		rightPane.setLayout(new GridLayout(3,1));
 		rightPane.setPreferredSize(new Dimension( dim.width/4,dim.height ));
 		//imagePane
-		BufferedImage buffImage = ImageIO.read(new File("D:\\splashScreen.jpeg"));
+		BufferedImage buffImage = ImageIO.read(new File("images\\splashScreen.jpeg"));
 		JLabel image = new JLabel(new ImageIcon(buffImage));
 		image.setPreferredSize(new Dimension((dim.width/4)*3, dim.height));
 		imagePanel.setLayout(new BorderLayout());
@@ -94,7 +94,7 @@ public class Login extends JFrame implements ActionListener{
 		hyperlink.setForeground(Color.BLUE.darker());
 		hyperlink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
-		BufferedImage userImg = ImageIO.read(new File("D:\\user.png"));
+		BufferedImage userImg = ImageIO.read(new File("images\\profileSmall.png"));
 		JLabel userPic = new JLabel(new ImageIcon(userImg));
 		formPanel.add(userPic);
 		formPanel.add(new JLabel("Username"));

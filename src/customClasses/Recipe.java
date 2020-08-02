@@ -9,10 +9,10 @@ import java.util.Map;
 import database.Database;
 
 public class Recipe {
-	int recipeId;
-	String recipeName;
-	String cuisine;
-	float preparationTime; //hours
+	public int recipeId;
+	public String recipeName;
+	public String cuisine;
+	public float preparationTime; //minutes
 	public Map<Item,Integer>ingredients;
 	
 	public String toString() {

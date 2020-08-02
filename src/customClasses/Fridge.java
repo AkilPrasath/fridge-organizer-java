@@ -11,11 +11,12 @@ import database.Database;
 
 
 abstract public class Fridge {
-	int fridgeId;
-	String fridgeName;
-	int capacity;
-	public List<Item>itemList=new ArrayList<Item>();
-	Fridge( int id , String name){
+	public int fridgeId;
+	public String fridgeName;
+	public int capacity;
+	public ArrayList<Item>itemList=new ArrayList<Item>();
+	Fridge( int id , String name, int cap){
+		this.capacity = cap;
 		this.fridgeId = id;
 		this.fridgeName = name;
 		System.out.println("printing frmdge name:"+name);
@@ -48,9 +49,48 @@ abstract public class Fridge {
 					itemList.add( new Item(itemId,date,result1.getString("itemName"),result1.getInt("bestBeforeDays")) );
 				}
 			}
+			con.close();
 		}
 		catch(Exception ex) {
 			System.out.println("item init "+ex.getMessage());
 		}
-	};
+	}
+	
+	public ArrayList<Item> deleteFridgeItems( Item item , int count , boolean needReturn) {
+		int currentCount = 0;
+//		System.out.println("item given:"+item);
+//		System.out.println("item avail: "+itemList);
+		ArrayList<Item> itemsToDelete = new ArrayList<Item>();
+		for( Item i: itemList ) {
+			if( i.toString().equals(item.toString()) ) {
+				itemsToDelete.add(i);
+			}
+		}
+		for ( int i=0; i<count; i++ ) {
+			deleteItem(itemsToDelete.get(i));
+			
+		}
+		if (needReturn) {
+			return itemsToDelete;
+		}
+		return null;
+		
+	}
+	
+	private void deleteItem( Item item ) {
+		
+		itemList.remove(item);
+		item.delete(fridgeId);
+		
+		
+	}
+	
+	public void addItems(ArrayList<Item> items) {
+		
+		for( Item item : items ) {
+			item.addItemToFridge(fridgeId);
+		}
+		
+	}
+	
 }

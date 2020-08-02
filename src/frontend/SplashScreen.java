@@ -2,9 +2,11 @@ package frontend;
 
 import javax.swing.*;
 
+
 import customClasses.User;
 
 import java.awt.*;
+import java.net.URL;
 
 
 
@@ -12,12 +14,12 @@ public class SplashScreen extends JWindow {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	Image splashScreen;     
 	ImageIcon imageIcon;    
 	JFrame frame;
 	SplashScreen(){
-		splashScreen = Toolkit.getDefaultToolkit().getImage("D:\\splashScreen.jpeg");
+//		URL ur = getClass().getClassLoader().getResource("/assets/splashScreen.jpeg");
+		splashScreen = Toolkit.getDefaultToolkit().getImage("images\\splash.jpeg");
 		imageIcon = new ImageIcon(splashScreen);
 		setSize(imageIcon.getIconWidth(),imageIcon.getIconHeight()); 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -35,7 +37,7 @@ public class SplashScreen extends JWindow {
 		// TODO Auto-generated method stub
 		SplashScreen screen = new SplashScreen();
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(500);
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());

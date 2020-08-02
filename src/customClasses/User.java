@@ -9,11 +9,10 @@ import database.Database;
 
 public class User {
 	public int userId;
-	String username;
-	String hint;
+	public String username;
+	public String hint;
 	public List<Fridge> fridges;
 	public Map<String,Recipe>recipes ;
-	Report[] reports;
 	
 	public User( int id ){
 		fridges = new ArrayList<Fridge>();
@@ -70,13 +69,13 @@ public class User {
 			int fridgeNameIndex=0;
 			for( int fridgeId: fridgeList.keySet() ) {
 				if( fridgeList.get(fridgeId)==100 ) {
-					fridges.add(new SmallFridge(fridgeId,fridgeNames.get(fridgeNameIndex++)));
+					fridges.add(new SmallFridge(fridgeId,fridgeNames.get(fridgeNameIndex++),100));
 				}
 				else if( fridgeList.get(fridgeId)==200 ) {
-					fridges.add(new MediumFridge(fridgeId,fridgeNames.get(fridgeNameIndex++)));
+					fridges.add(new MediumFridge(fridgeId,fridgeNames.get(fridgeNameIndex++),200));
 				}
 				else if( fridgeList.get(fridgeId)==300 ) {
-					fridges.add(new LargeFridge(fridgeId,fridgeNames.get(fridgeNameIndex++)));
+					fridges.add(new LargeFridge(fridgeId,fridgeNames.get(fridgeNameIndex++),300));
 				}
 			}
 			

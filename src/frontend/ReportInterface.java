@@ -2,8 +2,7 @@ package frontend;
 
 import java.util.ArrayList;
 
-interface report{
-//    int userTable();
+interface Report{
     ArrayList<Integer> fridgeId();
     ArrayList<String>  fridgeName();
     void generateReport();
