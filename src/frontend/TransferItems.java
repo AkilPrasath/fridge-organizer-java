@@ -38,7 +38,7 @@ public class TransferItems extends JFrame implements ActionListener,ItemListener
 		int x = (dim.width-getSize().width)/2; 
 		int y = (dim.height-getSize().height)/2; 
 		setLocation(x,y);
-		
+		setVisible(true);
 		JLabel fromFridgeLabel = new JLabel("Transfer From");
 		fromFridgeLabel.setBounds(60,60,100,20);
 		add(fromFridgeLabel);
@@ -69,8 +69,13 @@ public class TransferItems extends JFrame implements ActionListener,ItemListener
 		
 		itemListCombo = new JComboBox<Item>();
 		
-		for( Item item : getUniqueItems(currentUser.fridges.get(0).itemList) ) {
-			itemListCombo.addItem(item);
+		try {
+			for( Item item : getUniqueItems(currentUser.fridges.get(0).itemList) ) {
+				itemListCombo.addItem(item);
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "No Fridge Found!!");
+			dispose();
 		}
 		itemListCombo.setBounds(200,140,120,20);
 		add(itemListCombo);
@@ -100,7 +105,7 @@ public class TransferItems extends JFrame implements ActionListener,ItemListener
 		
 		
 		
-		setVisible(true);
+		
 	}
 	
 	private ArrayList<Item> getUniqueItems( ArrayList<Item> itemList ){

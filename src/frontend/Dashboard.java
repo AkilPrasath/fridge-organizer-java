@@ -29,6 +29,7 @@ public class Dashboard extends JFrame implements ActionListener{
 		this.currentUser = user;
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(dim.width,dim.height);
+		setTitle("Dashboard");
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		setBackground(Color.white);
 		setLayout(new BorderLayout());
@@ -354,8 +355,8 @@ public class Dashboard extends JFrame implements ActionListener{
 	}
 	
 	
-	public static void main(String[] args) {
-	}
+//	public static void main(String[] args) {
+//	}
 
 }
 

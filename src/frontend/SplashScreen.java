@@ -18,7 +18,6 @@ public class SplashScreen extends JWindow {
 	ImageIcon imageIcon;    
 	JFrame frame;
 	SplashScreen(){
-//		URL ur = getClass().getClassLoader().getResource("/assets/splashScreen.jpeg");
 		splashScreen = Toolkit.getDefaultToolkit().getImage("images\\splash.jpeg");
 		imageIcon = new ImageIcon(splashScreen);
 		setSize(imageIcon.getIconWidth(),imageIcon.getIconHeight()); 
@@ -37,7 +36,7 @@ public class SplashScreen extends JWindow {
 		// TODO Auto-generated method stub
 		SplashScreen screen = new SplashScreen();
 		try {
-			Thread.sleep(500);
+			Thread.sleep(4000);
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());
@@ -49,7 +48,12 @@ public class SplashScreen extends JWindow {
 		}
 		else {
 			
-			Login.main(args);
+			try {
+				new Login();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println("exception in creating object to login class"+e.getMessage());
+			}
 		}
 	}
 

@@ -32,6 +32,7 @@ public class Login extends JFrame implements ActionListener{
 		setBackground(Color.white);
 		setLayout(new BorderLayout());
 		setResizable(false);
+		setTitle("REDBUG Login");
 		//panels
 		JPanel imagePanel = new JPanel();
 		imagePanel.setBackground(Color.white);
@@ -67,7 +68,8 @@ public class Login extends JFrame implements ActionListener{
 		infoPic.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		infoPic.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				JOptionPane.showMessageDialog(getObj(), "Hint comes here","Hint",JOptionPane.WARNING_MESSAGE);
+				String hint = getHint();
+				JOptionPane.showMessageDialog(getObj(), "Hint: "+hint,"Hint",JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		infoPane.add(infoPic);
@@ -164,18 +166,41 @@ public class Login extends JFrame implements ActionListener{
 		return -1;
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	private String getHint() {
+		String hint = "No hint available";
 		try {
-			Login login = new Login();
-//			String hash = Hashing.getHash("akilA1");
-//			System.out.println(hash);
-//			System.out.println( Hashing.validatePassword("akilA1", hash) );
+			String name = username.getText();
+			Connection con = Database.getConnection();
+			String sql = "select * from users where username=?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, name);
+			ResultSet result = stmt.executeQuery();
+			result.next();
+			hint = result.getString("hint");
+			con.close();
+			
 		}
-		catch(Exception ex) {
-			System.out.println(" Login "+ex.getMessage());
+		catch( Exception ex ) {
+			System.out.println("Hint "+ex.getMessage());
 		}
+		
+		
+		
+		return hint;
 	}
+	
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		try {
+//			Login login = new Login();
+////			String hash = Hashing.getHash("akilA1");
+////			System.out.println(hash);
+////			System.out.println( Hashing.validatePassword("akilA1", hash) );
+//		}
+//		catch(Exception ex) {
+//			System.out.println(" Login "+ex.getMessage());
+//		}
+//	}
 
 
 

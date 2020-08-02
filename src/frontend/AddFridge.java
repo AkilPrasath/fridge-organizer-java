@@ -16,7 +16,6 @@ public class AddFridge extends JFrame implements ActionListener {
 	 * 
 	 */
 	User currentUser;
-	private static final long serialVersionUID = 1L;
 	private JLabel name, size;
 	// private JTextField nf;
 	private JComboBox sf;
@@ -50,7 +49,7 @@ public class AddFridge extends JFrame implements ActionListener {
 		sf.setSelectedItem(null);
 		Object[] fields = { "Fridgename", field1, "size", sf, };
 
-		int result = JOptionPane.showConfirmDialog(null, fields, "Result", JOptionPane.OK_CANCEL_OPTION);
+		int result = JOptionPane.showConfirmDialog(null, fields, "Add Fridge", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) { 
 			fridgename = field1.getText();
 			String s = (String) sf.getSelectedItem();
@@ -179,9 +178,9 @@ public class AddFridge extends JFrame implements ActionListener {
 		return a;
 	}
 
-	public static void main(String[] args) {
-			new AddFridge(new User(9));
-		
-	}
+//	public static void main(String[] args) {
+//			new AddFridge(new User(9));
+//		
+//	}
 
 }

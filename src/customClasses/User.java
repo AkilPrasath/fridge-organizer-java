@@ -197,7 +197,7 @@ public class User {
 			for( Item i : r.ingredients.keySet() ) {
 				reqCount = r.ingredients.get(i);
 				presentCount = countItems( items, i );
-				if( presentCount >= reqCount-2 ) {
+				if( presentCount >= (reqCount-2) && presentCount!=0 ) {
 					continue;
 				}
 				else {

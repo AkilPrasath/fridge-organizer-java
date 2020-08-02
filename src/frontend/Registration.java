@@ -17,7 +17,7 @@ public class Registration extends JFrame  implements ActionListener,TextListener
 	JPasswordField password,confirmPassword;
 	JLabel usernameLabel,passwordLabel,cpasswordLabel,hintLabel;
 	Registration(){
-		setTitle("Smidge-Registration");
+		setTitle("REDBUG-Registration");
 		setSize(350,400);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (dim.width-getSize().width)/2;
@@ -168,9 +168,9 @@ public class Registration extends JFrame  implements ActionListener,TextListener
 		// TODO Auto-generated method stub
 		
 	}
-	public static void main() {
-		// TODO Auto-generated method stub
-		new Registration();
-	}
+//	public static void main() {
+//		// TODO Auto-generated method stub
+//		new Registration();
+//	}
 
 }

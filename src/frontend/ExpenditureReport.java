@@ -400,10 +400,10 @@ public class ExpenditureReport implements ActionListener, frontend.Report {
 //        }
 //       return -1;
 //   }
-	public static void main(String[] args) {
-		// new ExpenditureReport().goToFridgeContents();
-		ExpenditureReport expenditureReport = new ExpenditureReport(new User(9));
-	}
+//	public static void main(String[] args) {
+//		// new ExpenditureReport().goToFridgeContents();
+//		ExpenditureReport expenditureReport = new ExpenditureReport(new User(9));
+//	}
 
 }
 

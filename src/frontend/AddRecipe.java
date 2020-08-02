@@ -15,7 +15,7 @@ import customClasses.Item;
 import customClasses.User;
 import database.Database;
 
-public class AddRecipe extends JFrame implements ChangeListener,ActionListener,ItemListener{
+public class AddRecipe extends JFrame implements ActionListener,ItemListener{
 	User currentUser;
 	JComboBox<String> itemCombo;
 	JLabel recipeNameLabel,cuisineLabel,timeLabel;
@@ -34,7 +34,7 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 	AddRecipe(User user){
 		ingredientsData = new String[30][2];
 		this.currentUser = user;
-		
+		setTitle("Add Recipe");
 		setResizable(false);
 		setSize(new Dimension(550,400));
 		setLayout(null);
@@ -88,7 +88,6 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 		SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 50, 1);
 		itemQuantitySpinner.setModel(model);
 		((DefaultEditor) itemQuantitySpinner.getEditor()).getTextField().setEditable(false);
-		itemQuantitySpinner.addChangeListener(this);
 		add(itemQuantitySpinner);
 		
 		addIngredient = new JButton("Add");
@@ -120,14 +119,11 @@ public class AddRecipe extends JFrame implements ChangeListener,ActionListener,I
 		setVisible(true);
 	}
 	
-	public static void main(String[] arg) {
-		new AddRecipe(new User(9));
-	}
+//	public static void main(String[] arg) {
+//		new AddRecipe(new User(9));
+//	}
 
-	@Override
-	public void stateChanged(ChangeEvent e) {
-		
-	}
+	
 	
 	private void generateTable() {
 		remove(scrollPane);

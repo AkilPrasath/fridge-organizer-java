@@ -56,8 +56,8 @@ public class FridgeContents implements ActionListener {
 		frame1.add(panelCenterr, BorderLayout.CENTER);
 		panelWestt.add(button1);
 		button1.setBounds(50, 50, 200, 60);
-		addItem.setBounds(50, 100, 95, 30);
-		button3.setBounds(50, 30, 95, 30);
+		addItem.setBounds(50, 50, 130, 20);
+		button3.setBounds(50, 80, 130, 20);
 //		button1.addActionListener(this);
 		addItem.addActionListener(this);
 		button3.addActionListener(this);
@@ -72,7 +72,7 @@ public class FridgeContents implements ActionListener {
 
 		}
 
-		int result = JOptionPane.showConfirmDialog(null, fields, "Result", JOptionPane.OK_CANCEL_OPTION);
+		int result = JOptionPane.showConfirmDialog(null, fields, "Manage Items", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 
 			fridgeName = (String) comboBox1.getSelectedItem();
@@ -84,17 +84,24 @@ public class FridgeContents implements ActionListener {
 				}
 			}
 			frame2 = new JFrame("Organize Fridge");
-			frame2.setSize(w, h);
+			frame2.setTitle("Add/Remove");
+			frame2.setSize(300,200);
+			frame2.setLayout(null);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			int x = (dim.width-frame2.getSize().width)/2; 
+			int y = (dim.height-frame2.getSize().height)/2; 
+			frame2.setLocation(x,y);
 
-			JPanel panelWest = new JPanel();
-			JPanel panelCenter = new JPanel();
-			panelWest.setPreferredSize(new Dimension(w / 4, h));
-			panelCenter.setPreferredSize(new Dimension((w * 3) / 4, h));
-
-			panelWest.add(addItem);
-			panelCenter.add(button3);
-			frame2.add(panelWest, BorderLayout.WEST);
-			frame2.add(panelCenter, BorderLayout.CENTER);
+//			JPanel panelWest = new JPanel();
+//			JPanel panelCenter = new JPanel();
+//			panelWest.setPreferredSize(new Dimension(w / 4, h));
+//			panelCenter.setPreferredSize(new Dimension((w * 3) / 4, h));
+			frame2.add(addItem);
+			frame2.add(button3);
+//			panelWest.add(addItem);
+//			panelCenter.add(button3);
+//			frame2.add(panelWest, BorderLayout.WEST);
+//			frame2.add(panelCenter, BorderLayout.CENTER);
 			frame2.setVisible(true);
 		}
 		//akil
@@ -125,7 +132,7 @@ public class FridgeContents implements ActionListener {
 
 			}
 
-			int result = JOptionPane.showConfirmDialog(null, fields, "Result", JOptionPane.OK_CANCEL_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, fields, "Add Items", JOptionPane.OK_CANCEL_OPTION);
 			if (result == JOptionPane.OK_OPTION) {
 				itemName = (String) comboBox2.getSelectedItem();
 				System.out.println("itemName here" + itemName + "\nlist of items\n");
@@ -156,7 +163,7 @@ public class FridgeContents implements ActionListener {
 
 					"Select itemName", itemComboBox, "Quantity", quantitySpinner, };
 
-			int result = JOptionPane.showConfirmDialog(null, fields, "Result", JOptionPane.OK_CANCEL_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, fields, "Delete Items", JOptionPane.OK_CANCEL_OPTION);
 			if (result == JOptionPane.OK_OPTION) {
 				Item selectedItem = (Item)itemComboBox.getSelectedItem();
 				int selectedQuantity = (Integer)quantitySpinner.getValue();
@@ -218,8 +225,8 @@ public class FridgeContents implements ActionListener {
 		}
 	}
 
-	public static void main(String aa[]) {
-		FridgeContents f1 = new FridgeContents(new User(9));
-	}
+//	public static void main(String aa[]) {
+//		FridgeContents f1 = new FridgeContents(new User(9));
+//	}
 
 }

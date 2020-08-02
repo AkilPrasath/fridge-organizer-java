@@ -29,7 +29,7 @@ public class CreateItem
         "Enter No.of.days to expire",field2,
         };
              
-        int result=JOptionPane.showConfirmDialog(null,fields,"Result",JOptionPane.OK_CANCEL_OPTION);
+        int result=JOptionPane.showConfirmDialog(null,fields,"Create Item",JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
         itemName=field1.getText();
         bestBeforeDays=Integer.parseInt(field2.getText());
@@ -153,17 +153,17 @@ public class CreateItem
 	}
         
             
-      public static void main(String[] args) {
-    
-		
-		try {
-			CreateItem i1= new CreateItem();
-
-		}
-		catch(Exception ex) {
-			System.out.println("items "+ex.getMessage());
-		}
-	}  
+//      public static void main(String[] args) {
+//    
+//		
+//		try {
+//			CreateItem i1= new CreateItem();
+//
+//		}
+//		catch(Exception ex) {
+//			System.out.println("items "+ex.getMessage());
+//		}
+//	}  
         
         
     }

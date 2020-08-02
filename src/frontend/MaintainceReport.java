@@ -202,7 +202,7 @@ public class MaintainceReport extends JFrame implements ActionListener,frontend.
                     frame.add(label3);
                     frame.add(label4);
                     
-                    ImageIcon icon = new ImageIcon("d://oneonr.jpg");
+                    ImageIcon icon = new ImageIcon("images//oneonr.jpg");
                     JLabel label = new JLabel(icon);
                     label.setBounds(250, 100, 150, 150);
                     frame.add(label);
@@ -228,7 +228,7 @@ public class MaintainceReport extends JFrame implements ActionListener,frontend.
                     frame.add(label3);
                     frame.add(label4);
                     
-                    ImageIcon icon = new ImageIcon("d://two2.jpg");
+                    ImageIcon icon = new ImageIcon("images//two2.jpg");
                     JLabel label = new JLabel(icon);
                     label.setBounds(250, 100, 150, 150);
                     frame.add(label); 
@@ -252,7 +252,7 @@ public class MaintainceReport extends JFrame implements ActionListener,frontend.
                     frame.add(label3);
                     frame.add(label4);
                     
-                    ImageIcon icon = new ImageIcon("d://three3.jpg");
+                    ImageIcon icon = new ImageIcon("images//three3.jpg");
                     JLabel label = new JLabel(icon);
                     label.setBounds(250, 100, 150, 150);
                     frame.add(label);
@@ -276,7 +276,7 @@ public class MaintainceReport extends JFrame implements ActionListener,frontend.
                     frame.add(label3);
                     frame.add(label4);
                     
-                    ImageIcon icon = new ImageIcon("d://four4.jpg");
+                    ImageIcon icon = new ImageIcon("images//four4.jpg");
                     JLabel label = new JLabel(icon);
                     label.setBounds(250, 100, 150, 150);
                     frame.add(label);
@@ -385,9 +385,9 @@ public class MaintainceReport extends JFrame implements ActionListener,frontend.
             System.out.println(e.getMessage());
         }
     }
-    public static void main(String[] args) {
-         new MaintainceReport(new User(9));
-    }
+//    public static void main(String[] args) {
+//         new MaintainceReport(new User(9));
+//    }
 
     
     

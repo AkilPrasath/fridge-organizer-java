@@ -64,9 +64,9 @@ public class ListItems extends JFrame implements ActionListener{
 		
 	}
 	
-	public static void main(String[] arg) {
-		new ListItems();
-	}
+//	public static void main(String[] arg) {
+//		new ListItems();
+//	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
