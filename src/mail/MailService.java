@@ -23,10 +23,9 @@ public class MailService{
 		properties.put("mail.smtp.port","587");
 		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 		
-//		String myMail="exchangeit001@gmail.com";
-//		String password="Abishekganesh4";
-		String myMail="servicesatredbug@gmail.com";
-		String password="servicesredbug";
+
+		String myMail="yourmail@gmail.com";
+		String password="password";
 		
 		Session session=Session.getInstance(properties,new Authenticator() {
 			@Override
